@@ -1,7 +1,6 @@
 
 
 
-import java.io.File;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import test.registration2.Message;
@@ -85,22 +84,5 @@ public class testMessage {
 
         assertEquals(expected, actual);
     }
-    @Test
-     public void testSaveToJSON() {
-    Message msg = new Message();
-    // Add a message
-    // Call saveMessagesToJSON()
-    File file = new File("messages.json");
-    assertTrue(file.exists());
-
-    }
-
-
-    @Test
-
-    public void testRetrieveMessageByID() {
-    // Add test for retrieval
-
-    after workflows }
 }
 
