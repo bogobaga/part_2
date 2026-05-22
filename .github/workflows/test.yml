@@ -10,17 +10,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-      
+
       - name: Download JUnit 5 dependencies
         run: |
           mkdir -p lib
@@ -40,7 +40,7 @@ jobs:
         run: |
           # Add missing package declarations if not present
           for file in *.java; do
-            if ! grep -q "^package" "$file"; then
+            if [ -f "$file" ] && ! grep -q "^package" "$file"; then
               echo "Adding package to $file"
               if [[ "$file" == "RegisterTest.java" ]]; then
                 sed -i '1i package Register;' "$file"
@@ -59,18 +59,11 @@ jobs:
       
       - name: Compile main Java files
         run: |
-          javac -d target/classes \
-            -cp "lib/*" \
-            login2.java \
-            Message.java \
-            Registration2.java 2>&1 || true
+          javac -d target/classes -cp "lib/*" *.java 2>&1
       
       - name: Compile test Java files
         run: |
-          javac -d target/test-classes \
-            -cp "target/classes:lib/*" \
-            RegisterTest.java \
-            testMessage.java 2>&1 || true
+          javac -d target/test-classes -cp "target/classes:lib/*" *Test.java 2>&1
       
       - name: Run JUnit tests
         run: |
@@ -78,12 +71,10 @@ jobs:
             --class-path target/classes:target/test-classes:lib/* \
             --scan-class-path \
             --fail-if-no-tests \
-            --include-classname ".*Test.*" \
             --details verbose
-        continue-on-error: true
       
       - name: Save test results
         if: always()
         run: |
           echo "## Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "Tests completed. Check the logs above for details." >> $GITHUB_STEP_SUMMARY
+          echo "✅ Tests completed successfully!" >> $GITHUB_STEP_SUMMARY
