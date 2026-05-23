@@ -19,6 +19,9 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Show folder structure
+        run: find . -name "pom.xml"
+
       - name: Run tests
         run: mvn --batch-mode test -f part_2/Registration2/pom.xml
 
