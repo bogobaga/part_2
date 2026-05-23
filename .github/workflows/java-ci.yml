@@ -19,13 +19,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Run tests
-        run: mvn test
+      - name: Build and run tests
+        run: mvn --batch-mode test
 
       - name: Publish test report
         uses: dorny/test-reporter@v1
         if: always()
         with:
           name: Maven Tests
-          path: target/surefire-reports/*.xml
+          path: '**/surefire-reports/*.xml'   # ← use wildcard path
           reporter: java-junit
+          fail-on-error: false
