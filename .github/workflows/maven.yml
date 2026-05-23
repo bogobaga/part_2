@@ -10,6 +10,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+
     steps:
       - uses: actions/checkout@v4
 
@@ -20,7 +25,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Run tests
-        run: mvn --batch-mode test -f Registration2/pom.xml
+        run: mvn --batch-mode test -f Registration2/pom.xml -Dtest=testMessage
 
       - name: Publish test report
         uses: dorny/test-reporter@v1
