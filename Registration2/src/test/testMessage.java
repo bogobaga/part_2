@@ -1,4 +1,4 @@
-
+package test.registration2;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import test.registration2.Message;
