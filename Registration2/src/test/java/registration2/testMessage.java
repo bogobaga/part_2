@@ -7,7 +7,7 @@ import test.registration2.Message;
  *
  * @author username
  */
-public class testMessage {
+public class MessageTest {
     
 
 
