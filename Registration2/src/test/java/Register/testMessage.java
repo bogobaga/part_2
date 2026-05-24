@@ -64,12 +64,11 @@ public class testMessage {
     public void testMessageLengthFail() {
 
         String longMessage =
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-              + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-              + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-              + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-              + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-              + "aaaa";
+              "Bafana Bafana played an incredible match last night "
+          + "against Morocco at the FNB Stadium in Johannesburg. "
+          + "The crowd was electric as Percy Tau scored a stunning "
+          + "free kick in the final minutes of the game to secure "
+          + "a dramatic victory for South Africa in the qualifiers.";
 
         assertTrue(longMessage.length() > 250);
     }
