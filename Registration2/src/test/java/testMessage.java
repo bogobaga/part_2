@@ -1,5 +1,5 @@
-package test.registration2;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 import test.registration2.Message;
 
@@ -8,12 +8,19 @@ import test.registration2.Message;
  * @author username
  */
 public class testMessage {
+
+    Message test;
+
+    @BeforeEach
+    public void setUp() {
+
+        test = new Message();
+
     
+        Message.clearMessages();
+    }
 
-
-    Message test = new Message();
-
-    // TEST MESSAGE ID
+   
     @Test
     public void testCheckMessageIDSuccess() {
 
@@ -26,7 +33,7 @@ public class testMessage {
         assertFalse(Message.checkMessageID("12345678901"));
     }
 
-    // TEST RECIPIENT NUMBER
+
     @Test
     public void testCheckRecipientCellSuccess() {
 
@@ -35,19 +42,22 @@ public class testMessage {
 
     @Test
     public void testCheckRecipientCellFail() {
+
         assertFalse(test.checkRecipientCell("0838968900"));
     }
 
-    // TEST MESSAGE HASH
     @Test
     public void testCreateMessageHash() {
 
-    String result = test.createMessageHash( "00",1, "Hi Mike can you join us tonight");
+        String result = test.createMessageHash(
+                "00",
+                1,
+                "Hi Mike can you join us tonight"
+        );
 
-    assertEquals("00:1:HITONIGHT",result);
+        assertEquals("00:1:HITONIGHT", result);
     }
 
-    // TEST MESSAGE LENGTH SUCCESS
     @Test
     public void testMessageLengthSuccess() {
 
@@ -57,21 +67,19 @@ public class testMessage {
         assertTrue(shortMessage.length() <= 250);
     }
 
-    // TEST MESSAGE LENGTH FAILURE
     @Test
     public void testMessageLengthFail() {
 
         String longMessage =
-              "Bafana Bafana played an incredible match last night "
-          + "against Morocco at the FNB Stadium in Johannesburg. "
-          + "The crowd was electric as Percy Tau scored a stunning "
-          + "free kick in the final minutes of the game to secure "
-          + "a dramatic victory for South Africa in the qualifiers.";
+                "Bafana Bafana played an incredible match last night "
+                + "against Morocco at the FNB Stadium in Johannesburg. "
+                + "The crowd was electric as Percy Tau scored a stunning "
+                + "free kick in the final minutes of the game to secure "
+                + "a dramatic victory for South Africa in the qualifiers.";
 
         assertTrue(longMessage.length() > 250);
     }
 
-    // TEST TOTAL MESSAGES
     @Test
     public void testReturnTotalMessages() {
 
