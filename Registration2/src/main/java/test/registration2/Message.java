@@ -292,26 +292,49 @@ public class Message {
     public void loadMessagesFromJSON() {
 
     try {
+        
+        File file = new File("messages.json");
+        if (!file.exists()) return;
 
-    File file = new File("messages.json");
+        Scanner fileScanner = new Scanner(file);
+        String currentID = null, currentRecipient = null, 
+               currentStatus = null, currentMessage = null;
 
-    if (!file.exists()) {
-    return;
+        while (fileScanner.hasNextLine()) {
+            String line = fileScanner.nextLine().trim();
+
+    if (line.startsWith("\"messageID\""))
+        currentID = line.split(":")[1].replace("\"","").replace(",","").trim();
+    else if (line.startsWith("\"recipient\""))
+        currentRecipient = line.split(":")[1].replace("\"","").replace(",","").trim();
+    else if (line.startsWith("\"status\""))
+        currentStatus = line.split(":")[1].replace("\"","").replace(",","").trim();
+    else if (line.startsWith("\"message\""))
+        currentMessage = line.split(":")[1].replace("\"","").replace(",","").trim();
+    else if (line.startsWith("}")) {
+         if (currentID != null) {
+            messageIDs.add(currentID);
+            recipients.add(currentRecipient);
+            status.add(currentStatus);
+         if ("Sent".equals(currentStatus)) sentMessages.add(currentMessage);
+    else storedMessages.add(currentMessage);
+            totalMessages++;
     }
-
-    Scanner fileScanner = new Scanner(file);
-
-    while (fileScanner.hasNextLine()) {
-
-    System.out.println(fileScanner.nextLine());
-    }
-
-    fileScanner.close();
-
-    } catch (FileNotFoundException e) {
-
-    System.out.println("No JSON file found.");
+            currentID = currentRecipient = currentStatus = currentMessage = null;
+            }
         }
+        fileScanner.close();
+        for (int i = 0; i < messageIDs.size(); i++) {
+    System.out.println("ID: " + messageIDs.get(i) + 
+                       " | Recipient: " + recipients.get(i) + 
+                       " | Status: " + status.get(i));
+}
+        
+    } catch (FileNotFoundException e) {
+        
+        System.out.println("No JSON file found.");
+    }
+
     }
 
     public String printMessage() {
