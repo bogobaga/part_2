@@ -401,12 +401,6 @@ public class Message {
     System.out.println("Invalid option.");
     }
 }
-        public static void clearMessages() {
-
-    sentMessages.clear();
-    storedMessages.clear();
-    disregardedMessages.clear();
-    messageHashes.clear();
-}
+        
     }
 }
